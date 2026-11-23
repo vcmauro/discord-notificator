@@ -1,0 +1,31 @@
+name: Notificar estado de proyecto
+
+on:
+  schedule:
+    # Lunes, martes, miércoles y viernes a las 9:00 AM Lima (14:00 UTC)
+    - cron: "0 14 * * 1,2,3,5"
+    # Sábado a las 4:00 PM Lima (21:00 UTC)
+    - cron: "0 21 * * 6"
+    # Domingo a las 2:00 PM Lima (19:00 UTC)
+    - cron: "0 19 * * 0"
+  workflow_dispatch:
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Descargar repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Ejecutar notificador
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          AI_API_KEY: ${{ secrets.AI_API_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: node notify.js
