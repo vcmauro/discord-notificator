@@ -23,6 +23,15 @@ jobs:
         with:
           node-version: "22"
 
+      - name: Preparar configuración privada
+        env:
+          SETTINGS_JSON: ${{ secrets.SETTINGS_JSON }}
+          SYSTEM_PROMPT: ${{ secrets.SYSTEM_PROMPT }}
+        run: |
+          mkdir -p config
+          printf '%s\n' "$SETTINGS_JSON" > config/settings.json
+          printf '%s\n' "$SYSTEM_PROMPT" > config/system.md
+
       - name: Ejecutar notificador
         env:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
