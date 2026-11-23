@@ -1,0 +1,13 @@
+{
+  "timezone": "America/Lima",
+  "ai": {
+    "provider": "groq",
+    "baseUrl": "https://api.groq.com/openai/v1",
+    "model": "openai/gpt-oss-120b"
+  },
+  "githubStatus": {
+    "repoUrl": "https://github.com/vcmauro/backstage-catalog",
+    "branch": "main",
+    "filePath": "README.md"
+  }
+}
